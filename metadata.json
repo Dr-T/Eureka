@@ -1,0 +1,7 @@
+{
+  "name": "Newton's Stardust",
+  "description": "An immersive Feynman Learning tool for Physics, transforming formulas into cosmic stardust.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
