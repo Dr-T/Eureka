@@ -140,8 +140,12 @@ const LoadingView = ({ onComplete }: { onComplete: () => void }) => {
       {/* Background Ambient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950"></div>
 
-      <h2 className="text-2xl font-bold text-white mb-10 flex items-center gap-3 relative z-10">
-        <Atom className="w-8 h-8 text-cyan-400 animate-spin" style={{ animationDuration: '4s' }} />
+      <div className="w-20 h-20 relative mb-8 z-10">
+        <div className="absolute inset-0 border-t-2 border-blue-400 rounded-full animate-spin"></div>
+        <div className="absolute inset-2 border-r-2 border-purple-400 rounded-full animate-spin-reverse"></div>
+      </div>
+
+      <h2 className="text-2xl font-bold text-white mb-10 relative z-10">
         <span>费曼学习宇宙生成中</span>
       </h2>
 

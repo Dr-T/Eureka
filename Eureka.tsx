@@ -223,7 +223,7 @@ const Layout = ({ children, activeView, setView, userRole, setUserRole }: {
   return (
     <div className="flex flex-col h-screen bg-slate-950 text-white font-sans overflow-hidden">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-slate-900/50 backdrop-blur-md border-b border-white/10 z-50 relative">
+      <header className="flex items-center justify-between px-6 py-4 bg-slate-900/50 backdrop-blur-md border-b border-white/10 z-[60] relative">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
             <Atom className="w-5 h-5 text-white animate-spin" style={{ animationDuration: '3s' }} />
@@ -427,8 +427,12 @@ const LoadingView = ({ onComplete }: { onComplete: () => void }) => {
       <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-cyan-500/20 blur-[100px] rounded-full"></div>
       <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-indigo-500/20 blur-[100px] rounded-full"></div>
 
-      <h2 className="text-2xl font-bold text-white mb-10 flex items-center gap-3 relative z-10">
-        <Atom className="w-8 h-8 text-cyan-400 animate-spin" style={{ animationDuration: '4s' }} />
+      <div className="w-20 h-20 relative mb-8 z-10">
+        <div className="absolute inset-0 border-t-2 border-blue-400 rounded-full animate-spin"></div>
+        <div className="absolute inset-2 border-r-2 border-purple-400 rounded-full animate-spin-reverse"></div>
+      </div>
+
+      <h2 className="text-2xl font-bold text-white mb-10 relative z-10">
         <span>互动式仿真课程生成中...</span>
       </h2>
 
