@@ -3,111 +3,21 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { MemoryGallery } from './components/MemoryGallery';
 import { Memory } from './types';
 
-// --- Icons (Inline SVGs to replace lucide-react and avoid runtime errors) ---
-
-const IconWrapper = ({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    style={style}
-  >
-    {children}
-  </svg>
-);
-
-const Atom = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-  <IconWrapper className={className} style={style}>
-    <circle cx="12" cy="12" r="1" />
-    <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z" />
-    <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
-  </IconWrapper>
-);
-
-const Brain = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
-    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
-  </IconWrapper>
-);
-
-const MessageSquare = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-  </IconWrapper>
-);
-
-const Target = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="6" />
-    <circle cx="12" cy="12" r="2" />
-  </IconWrapper>
-);
-
-const CheckCircle2 = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <path d="m9 12 2 2 4-4" />
-  </IconWrapper>
-);
-
-const XCircle = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <path d="m15 9-6 6" />
-    <path d="m9 9 6 6" />
-  </IconWrapper>
-);
-
-const ChevronRight = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <path d="m9 18 6-6-6-6" />
-  </IconWrapper>
-);
-
-const BarChart3 = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <path d="M3 3v18h18" />
-    <path d="M18 17V9" />
-    <path d="M13 17V5" />
-    <path d="M8 17v-3" />
-  </IconWrapper>
-);
-
-const Zap = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  </IconWrapper>
-);
-
-const Send = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <line x1="22" x2="11" y1="2" y2="13" />
-    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-  </IconWrapper>
-);
-
-const User = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </IconWrapper>
-);
-
-const Library = ({ className }: { className?: string }) => (
-  <IconWrapper className={className}>
-    <path d="m16 6 4 14" />
-    <path d="M12 6v14" />
-    <path d="M8 8v12" />
-    <path d="M4 4v16" />
-  </IconWrapper>
-);
+// --- Icons (Imported from components/Icons) ---
+import {
+  Atom,
+  Brain,
+  MessageSquare,
+  Target,
+  CheckCircle2,
+  XCircle,
+  ChevronRight,
+  BarChart3,
+  Zap,
+  Send,
+  User,
+  Library
+} from './components/Icons';
 
 
 // --- Types & Mock Data ---

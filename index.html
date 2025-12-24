@@ -1,45 +1,131 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stardust Diary</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-      body {
-        background-color: #000;
-        color: #fff;
-        /* Add Chinese fonts to fallback stack */
-        font-family: 'Space Grotesk', 'PingFang SC', 'Microsoft YaHei', 'Heiti SC', sans-serif;
-        overflow: hidden; /* Prevent scrolling on main body */
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stardust Diary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      /* Add Chinese fonts to fallback stack */
+      font-family: 'Space Grotesk', 'PingFang SC', 'Microsoft YaHei', 'Heiti SC', sans-serif;
+      overflow: hidden;
+      /* Prevent scrolling on main body */
+    }
+
+    .font-serif {
+      font-family: 'Cormorant Garamond', 'Songti SC', 'SimSun', serif;
+    }
+
+    /* Custom Scrollbar for gallery */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .fade-enter {
+      opacity: 0;
+    }
+
+    .fade-enter-active {
+      opacity: 1;
+      transition: opacity 500ms ease-in;
+    }
+
+    .fade-exit {
+      opacity: 1;
+    }
+
+    .fade-exit-active {
+      opacity: 0;
+      transition: opacity 500ms ease-out;
+    }
+
+    /* Landing Page Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
-      .font-serif {
-        font-family: 'Cormorant Garamond', 'Songti SC', 'SimSun', serif;
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      /* Custom Scrollbar for gallery */
-      ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+      /* Start hidden */
+    }
+
+    .delay-100 {
+      animation-delay: 100ms;
+    }
+
+    .delay-200 {
+      animation-delay: 200ms;
+    }
+
+    .delay-300 {
+      animation-delay: 300ms;
+    }
+
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
       }
-      ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
+
+      to {
+        transform: rotate(360deg);
       }
-      ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 3px;
+    }
+
+    .animate-spin-slow {
+      animation: spin-slow 20s linear infinite;
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        transform: rotate(-3deg);
       }
-      .fade-enter { opacity: 0; }
-      .fade-enter-active { opacity: 1; transition: opacity 500ms ease-in; }
-      .fade-exit { opacity: 1; }
-      .fade-exit-active { opacity: 0; transition: opacity 500ms ease-out; }
-    </style>
+
+      50% {
+        transform: rotate(3deg);
+      }
+    }
+
+    .animate-breathe {
+      animation: breathe 3s ease-in-out infinite;
+      display: inline-block;
+    }
+  </style>
 
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
-  </body>
+</body>
+
 </html>

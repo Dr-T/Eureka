@@ -271,7 +271,7 @@ export default function StardustPage() {
       // 检查API_KEY是否存在
       if (!process.env.GEMINI_API_KEY) {
         // 如果GEMINI_API_KEY不存在，直接跳转到GALLERY模式，避免应用崩溃
-        setTimeout(() => navigate('/', { state: { view: 'gallery' } }), 1500);
+        setTimeout(() => navigate('/app', { state: { view: 'gallery' } }), 1500);
         return;
       }
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
@@ -334,7 +334,7 @@ export default function StardustPage() {
       };
 
       // Redirect to Eureka Gallery with new memory
-      setTimeout(() => navigate('/', { state: { view: 'gallery', newMemory: newMemory } }), 1500);
+      setTimeout(() => navigate('/app', { state: { view: 'gallery', newMemory: newMemory } }), 1500);
 
     } catch (e) {
       console.error("Save failed", e);
@@ -364,7 +364,7 @@ export default function StardustPage() {
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 w-full p-6 z-30 flex justify-between items-center text-xs tracking-[0.2em] font-light text-white/70 mix-blend-difference">
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/app')}
           className="font-serif italic text-lg tracking-normal flex items-center hover:text-white transition-colors"
         >
           <Orbit size={16} className="mr-2 text-blue-300" /> Stardust
@@ -372,7 +372,7 @@ export default function StardustPage() {
         {/* 
         <div className="hidden md:flex space-x-8">
           <span className="cursor-pointer hover:text-white transition-colors">学习宇宙</span>
-          <span className="cursor-pointer hover:text-white transition-colors" onClick={() => navigate('/', { state: { view: 'gallery' } })}>知识结晶</span>
+          <span className="cursor-pointer hover:text-white transition-colors" onClick={() => navigate('/app', { state: { view: 'gallery' } })}>知识结晶</span>
         </div>
         */}
         <div className="flex items-center space-x-4">
