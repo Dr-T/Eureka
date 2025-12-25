@@ -75,7 +75,8 @@ export const useGeminiLive = (apiKey: string | undefined, onMessage: (text: stri
         transcriptRef.current = { user: '', model: '' };
 
         const baseUrl = (import.meta as any).env.VITE_GEMINI_BASE_URL;
-        const ai = new GoogleGenAI({ apiKey, baseURL: baseUrl } as any);
+        console.log("Initializing Gemini Live with Base URL:", baseUrl);
+        const ai = new GoogleGenAI({ apiKey, baseURL: baseUrl, apiEndpoint: baseUrl } as any);
 
         // Create new AudioContexts for this session
         const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
