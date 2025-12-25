@@ -158,8 +158,8 @@ export default function StardustPage() {
   // Session Timer
   const [durationSeconds, setDurationSeconds] = useState(0);
 
-  // Audio Refs
-  const musicAudioRef = useRef<HTMLAudioElement>(new Audio(DEMO_MUSIC_URL));
+  // Audio Refs (Refactored to state for lazy init)
+  const [musicAudio] = useState(() => new Audio(DEMO_MUSIC_URL));
 
   // Gemini Live Hook
   const [liveStream, setLiveStream] = useState<MediaStream | null>(null);
@@ -189,11 +189,12 @@ export default function StardustPage() {
   }, [isConnected]);
 
   // Update Music Volume dynamically
+  // Update Music Volume dynamically
   useEffect(() => {
-    if (musicAudioRef.current) {
-      musicAudioRef.current.volume = particleSettings.musicVolume;
+    if (musicAudio) {
+      musicAudio.volume = particleSettings.musicVolume;
     }
-  }, [particleSettings.musicVolume]);
+  }, [particleSettings.musicVolume, musicAudio]);
 
   const toggleRecording = async () => {
     if (isConnecting) return; // Prevent double clicks
@@ -208,9 +209,9 @@ export default function StardustPage() {
       // Auto-play music if not already playing
       if (!isPlayingMusic) {
         try {
-          musicAudioRef.current.loop = true;
-          musicAudioRef.current.volume = particleSettings.musicVolume;
-          await musicAudioRef.current.play();
+          musicAudio.loop = true;
+          musicAudio.volume = particleSettings.musicVolume;
+          await musicAudio.play();
           setIsPlayingMusic(true);
         } catch (e) {
           console.error("Auto-play music failed", e);
@@ -236,11 +237,11 @@ export default function StardustPage() {
 
   const toggleMusic = () => {
     if (isPlayingMusic) {
-      musicAudioRef.current.pause();
+      musicAudio.pause();
     } else {
-      musicAudioRef.current.loop = true;
-      musicAudioRef.current.volume = particleSettings.musicVolume;
-      musicAudioRef.current.play().catch(e => console.error("Audio play failed", e));
+      musicAudio.loop = true;
+      musicAudio.volume = particleSettings.musicVolume;
+      musicAudio.play().catch(e => console.error("Audio play failed", e));
     }
     setIsPlayingMusic(!isPlayingMusic);
   };
@@ -346,9 +347,9 @@ export default function StardustPage() {
   useEffect(() => {
     return () => {
       disconnect();
-      musicAudioRef.current.pause();
+      musicAudio.pause();
     };
-  }, [disconnect]);
+  }, [disconnect, musicAudio]);
 
   return (
     <div className="relative w-screen h-screen bg-black text-white overflow-hidden selection:bg-white/20">
