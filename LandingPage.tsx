@@ -57,7 +57,7 @@ const LandingPage = () => {
 
                     <div className="flex items-center gap-4">
                         <a
-                            href="https://github.com/Dr-T/Newtons-Stardust/blob/main/%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D.md"
+                            href="https://github.com/Dr-T/Eureka/blob/main/README.md"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden md:block"
