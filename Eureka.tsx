@@ -16,8 +16,11 @@ import {
   Zap,
   Send,
   User,
-  Library
+  Library,
+  Pen
 } from './components/Icons';
+import { HandwritingModal } from './components/HandwritingModal';
+import { useHandwritingRecognition } from './hooks/useHandwritingRecognition';
 
 
 // --- Types & Mock Data ---
@@ -54,8 +57,8 @@ const INITIAL_QUESTIONS: Question[] = [
     id: 2,
     type: 'formula',
     category: 'new',
-    question: '万有引力定律公式：F = G ____ / r²',
-    answer: 'Mm',
+    question: '万有引力定律公式：F = G ( ____ )',
+    answer: 'Mm/r²',
     placeholder: '填写质量符号',
     attempts: 0,
     status: 'pending',
@@ -65,8 +68,8 @@ const INITIAL_QUESTIONS: Question[] = [
     id: 3,
     type: 'calculation',
     category: 'review',
-    question: '若地球质量为M，半径为R，近地卫星的速度 v = √____',
-    answer: 'GM/R',
+    question: '若地球质量为M，半径为R，近地卫星的速度 v = ____',
+    answer: '√(GM/R)',
     placeholder: '输入公式表达式',
     attempts: 0,
     status: 'pending',
@@ -394,6 +397,17 @@ const PracticeView = ({ questions, setQuestions, goBack, onFinish }: any) => {
   const [inputValue, setInputValue] = useState('');
   const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
   const [isFinished, setIsFinished] = useState(false);
+  const [isHandwritingModalOpen, setIsHandwritingModalOpen] = useState(false);
+
+  const { recognizeHandwriting, isRecognizing, error } = useHandwritingRecognition(import.meta.env.VITE_GEMINI_API_KEY);
+
+  const handleHandwritingConfirm = async (imageBase64: string) => {
+    const text = await recognizeHandwriting(imageBase64);
+    if (text) {
+      setInputValue(text);
+      setIsHandwritingModalOpen(false);
+    }
+  };
 
   const currentQ = questions[currentIndex];
 
@@ -550,16 +564,33 @@ const PracticeView = ({ questions, setQuestions, goBack, onFinish }: any) => {
 
         {/* Input Area */}
         <div className="relative mb-12">
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleNext()}
-            placeholder={currentQ.placeholder}
-            autoFocus
-            className="w-full bg-transparent border-b-2 border-slate-700 focus:border-cyan-500 rounded-none px-2 py-4 text-xl text-white placeholder-slate-600 outline-none transition-all text-center"
-          />
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleNext()}
+              placeholder={currentQ.placeholder}
+              autoFocus
+              className="w-full bg-transparent border-b-2 border-slate-700 focus:border-cyan-500 rounded-none px-2 py-4 text-xl text-white placeholder-slate-600 outline-none transition-all text-center pr-10"
+            />
+            <button
+              onClick={() => setIsHandwritingModalOpen(true)}
+              className="absolute right-0 bottom-4 p-2 text-slate-400 hover:text-cyan-400 transition-colors"
+              title="手写输入"
+            >
+              <Pen className="w-5 h-5" />
+            </button>
+          </div>
         </div>
+
+        <HandwritingModal
+          isOpen={isHandwritingModalOpen}
+          onClose={() => setIsHandwritingModalOpen(false)}
+          onConfirm={handleHandwritingConfirm}
+          isProcessing={isRecognizing}
+          error={error} // Pass the error from the hook
+        />
 
         {/* Action Button */}
         <button

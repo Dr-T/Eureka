@@ -45,7 +45,7 @@ export const useGeminiChat = (apiKey: string | undefined, systemInstruction: str
             }));
 
             const response = await client.models.generateContent({
-                model: 'gemini-3-flash-preview',
+                model: 'gemini-2.5-flash-lite',
                 contents: apiContents,
                 config: {
                     systemInstruction: systemInstruction,
